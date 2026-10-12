@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: honestroom-backend
+
+  datasource:
+    url: jdbc:mysql://gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/honestroom?sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: 3W6JhKXfYK5Ra77.root
+    password: TrM7XxqHuj6tYQuU
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.TiDBDialect
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:HonestRoomDefaultDevSecretKeyMustBeAtLeast32BytesLongForHS256Signing2026}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+    cookie-name: honestroom_jwt
+    cookie-secure: ${COOKIE_SECURE:false}
+  cors:
+    frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  rate-limit:
+    public-feedback-max-requests: ${PUBLIC_FEEDBACK_RATE_LIMIT:10}
+    public-feedback-window-seconds: ${PUBLIC_FEEDBACK_WINDOW_SECONDS:60}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

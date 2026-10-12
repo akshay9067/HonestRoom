@@ -1,0 +1,39 @@
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IDE & Editors
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Backend (Maven / Spring Boot / Java)
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/data/
+backend/*.log
+*.class
+*.jar
+*.war
+*.ear
+
+# Frontend (Node / Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/coverage/
+*.local
+
+# Environment & Secrets (NEVER commit real credentials)
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
